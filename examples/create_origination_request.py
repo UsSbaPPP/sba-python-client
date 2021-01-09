@@ -55,6 +55,7 @@ business = {
     "primary_contact_email": "user@example.com",
     "is_franchise": False,
     #"franchise_code": None,
+    "is_sba_listed_franchise": False,
     "date_of_establishment": "2019-01-01"
 }
 

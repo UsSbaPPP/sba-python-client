@@ -134,6 +134,7 @@ class OriginationRequestApi(BaseApi):
                 "primary_contact",
                 "primary_contact_email",
                 "is_franchise",
+                "is_sba_listed_franchise",
                 "date_of_establishment",
                 ]:
             assert field in business, f'{field} is missing from Business'
@@ -152,8 +153,8 @@ class OriginationRequestApi(BaseApi):
                     ]:
                 assert field in business, f'{field} is missing from Business with tin_type SSN'
 
-        if business['is_franchise']:
-            assert 'franchise_code' in business, f'franchise_code is missing from Business that has set is_franchise to True'
+        if business['is_sba_listed_franchise']:
+            assert 'franchise_code' in business, f'franchise_code is missing from Business that has set is_sba_listed_franchise to True'
 
         for owner in business['owners']:
             for field in [
