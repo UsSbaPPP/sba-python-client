@@ -77,8 +77,6 @@ class OriginationRequestApi(BaseApi):
             average_monthly_payroll,
             loan_amount,
             number_of_employees,
-            period_1_revenue,
-            period_2_revenue,
             purpose_of_loan_payroll,
             purpose_of_loan_mortgage,
             purpose_of_loan_utilities,
@@ -107,6 +105,10 @@ class OriginationRequestApi(BaseApi):
             ppp_first_draw_loan_amount=None,
             applicant_has_reduction_in_gross_receipts=None,
             applicant_wont_receive_another_second_draw=None,
+            period_1_revenue=None,
+            period_2_revenue=None,
+            period_1_quarter=None,
+            period_2_quarter=None,
         ):
 
         """
@@ -153,9 +155,13 @@ class OriginationRequestApi(BaseApi):
                     ]:
                 assert field in business, f'{field} is missing from Business with tin_type SSN'
 
-        if business['is_sba_listed_franchise']:
+        if business['is_sba_listed_franchise'] or business['is_franchise']:
             assert 'franchise_code' in business, f'franchise_code is missing from Business that has set is_sba_listed_franchise to True'
 
+        if period_1_revenue or period_2_revenue:
+            assert period_1_quarter is not None
+            assert period_2_quarter is not None
+            
         for owner in business['owners']:
             for field in [
                     "owner_type",
@@ -197,7 +203,9 @@ class OriginationRequestApi(BaseApi):
             "loan_amount": loan_amount,
             "number_of_employees": number_of_employees,
             "period_1_revenue": period_1_revenue,
+            "period_1_quarter": period_1_quarter,
             "period_2_revenue": period_2_revenue,
+            "period_2_quarter": period_2_quarter,
             "purpose_of_loan_payroll": purpose_of_loan_payroll,
             "purpose_of_loan_mortgage": purpose_of_loan_mortgage,
             "purpose_of_loan_utilities": purpose_of_loan_utilities,
