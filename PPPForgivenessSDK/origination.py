@@ -109,6 +109,8 @@ class OriginationRequestApi(BaseApi):
             period_2_revenue=None,
             period_1_quarter=None,
             period_2_quarter=None,
+            refinance_of_eidl_amount=None,
+            refinance_of_eidl_loan_number=None,            
         ):
 
         """
@@ -161,7 +163,7 @@ class OriginationRequestApi(BaseApi):
         if period_1_revenue or period_2_revenue:
             assert period_1_quarter is not None
             assert period_2_quarter is not None
-            
+
         for owner in business['owners']:
             for field in [
                     "owner_type",
@@ -232,6 +234,8 @@ class OriginationRequestApi(BaseApi):
             'loan_request_is_necessary': loan_request_is_necessary,
             'applicant_has_reduction_in_gross_receipts': applicant_has_reduction_in_gross_receipts,
             'applicant_wont_receive_another_second_draw': applicant_wont_receive_another_second_draw,
+            'refinance_of_eidl_amount': refinance_of_eidl_amount,
+            'refinance_of_eidl_loan_number': refinance_of_eidl_loan_number,  
         }
 
         
