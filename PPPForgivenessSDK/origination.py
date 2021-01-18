@@ -203,10 +203,6 @@ class OriginationRequestApi(BaseApi):
             "average_monthly_payroll": average_monthly_payroll,
             "loan_amount": loan_amount,
             "number_of_employees": number_of_employees,
-            "period_1_revenue": period_1_revenue,
-            "period_1_quarter": period_1_quarter,
-            "period_2_revenue": period_2_revenue,
-            "period_2_quarter": period_2_quarter,
             "purpose_of_loan_payroll": purpose_of_loan_payroll,
             "purpose_of_loan_mortgage": purpose_of_loan_mortgage,
             "purpose_of_loan_utilities": purpose_of_loan_utilities,
@@ -231,18 +227,25 @@ class OriginationRequestApi(BaseApi):
             'applicant_meets_revenue_test_and_size_standard': applicant_meets_revenue_test_and_size_standard,
             'applicant_no_shuttered_venue_grant': applicant_no_shuttered_venue_grant,
             'loan_request_is_necessary': loan_request_is_necessary,
-            'applicant_has_reduction_in_gross_receipts': applicant_has_reduction_in_gross_receipts,
-            'applicant_wont_receive_another_second_draw': applicant_wont_receive_another_second_draw,
             'refinance_of_eidl_amount': refinance_of_eidl_amount,
-            'refinance_of_eidl_loan_number': refinance_of_eidl_loan_number,  
+            'refinance_of_eidl_loan_number': refinance_of_eidl_loan_number
         }
-
         
         if second_draw_ppp_loan:
             assert ppp_first_draw_sba_loan_number is not None, 'ppp_first_draw_sba_loan_number can not be None if submitting a Second Draw Loan'
             assert ppp_first_draw_loan_amount is not None, 'ppp_first_draw_loan_amount can not be None if submitting a Second Draw Loan'
-            params['ppp_first_draw_sba_loan_number'] = ppp_first_draw_sba_loan_number
-            params['ppp_first_draw_loan_amount'] = ppp_first_draw_loan_amount
+
+            second_draw_params = {
+                'period_1_revenue': period_1_revenue,
+                'period_1_quarter': period_1_quarter,
+                'period_2_revenue': period_2_revenue,
+                'period_2_quarter': period_2_quarter,
+                'applicant_has_reduction_in_gross_receipts': applicant_has_reduction_in_gross_receipts,
+                'applicant_wont_receive_another_second_draw': applicant_wont_receive_another_second_draw,
+                'ppp_first_draw_sba_loan_number': ppp_first_draw_sba_loan_number,
+                'ppp_first_draw_loan_amount': ppp_first_draw_loan_amount
+            }
+            params.update(second_draw_params)
 
         headers = {'Content-Type': 'application/json'}
         try:
