@@ -1,5 +1,6 @@
 
 from .document_types import DocumentTypeApi
+from .eidl_validation import EIDLLookupApi
 from .loan_documents import LoanDocumentsApi
 from .forgiveness import ForgivenessRequestApi
 from .messages import MessageApi
@@ -82,3 +83,7 @@ class Client(object):
     @property
     def validations(self):
         return LookupApi(self)
+
+    @property
+    def eidl_validations(self):
+        return EIDLLookupApi(self)
