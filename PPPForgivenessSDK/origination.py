@@ -37,7 +37,7 @@ class OriginationRequestApi(BaseApi):
         assert isinstance(page, int), "Page must be a valid integer"
 
         http_method = "GET"
-        endpoint = "ppp_loan_forgiveness_requests/"
+        endpoint = "origination/"
 
         uri = self.client.api_uri + endpoint
 
