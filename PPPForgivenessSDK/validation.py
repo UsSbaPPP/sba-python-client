@@ -3,7 +3,7 @@ from .base_api import BaseApi, UnknownException
 
 
 class LookupApi(BaseApi):
-    def list(self, sba_number, page=1):
+    def list(self, sba_number, page=1, first_draw_lookup=False):
         """
         :param sba_number: str (optional)
         :param page: int (optional):
@@ -13,7 +13,10 @@ class LookupApi(BaseApi):
         assert (isinstance(sba_number, str)), "sba_number must be a string"
 
         http_method = "GET"
-        endpoint = "ppp_loan_validations/"
+        if not first_draw_lookup:
+            endpoint = "ppp_loan_validations/"
+        else:
+            endpoint = "etran_ppp_validation/"
 
         uri = self.client.api_uri + endpoint
 
