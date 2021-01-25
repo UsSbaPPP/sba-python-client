@@ -55,3 +55,29 @@ class LoanDocumentsApi(BaseApi):
                     'data': json.loads(response.text)}
         except:
             raise UnknownException
+
+    def get(self, slug):
+        """
+        :param slug: str:
+        :return:
+        """
+        assert (isinstance(slug, str)), "sba_number must be a string"
+
+        http_method = "GET"
+        endpoint = "ppp_loan_documents/{0}/".format(slug)
+
+        uri = self.client.api_uri + endpoint
+
+        params = {
+            'slug': str(slug)
+        }
+
+        try:
+            response = self.execute(http_method=http_method,
+                                    url=uri,
+                                    query_params=params)
+
+            return {'status': response.status_code,
+                    'data': json.loads(response.text)}
+        except:
+            raise UnknownException

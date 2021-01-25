@@ -14,6 +14,9 @@ result = documents_api.list(sba_number='999999999', page=1) # get a paginated li
 
 if result['status'] == 200:
     print(result['data'])
+    if len(result['data']['results']) > 0:
+        result = documents_api.get(slug=result['data']['results'][0]['slug']) # get a specific document by slug
+        print(result['data'])
 else:
     print("An error occurred." + str(result['status']))
     print(result['data'])
