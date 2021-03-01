@@ -92,23 +92,26 @@ class ForgivenessRequestApi(BaseApi):
             primary_email,
             primary_name,
             ez_form,
+            ppp_loan_draw,
+            naics_code,
             forgive_lender_confirmation,
             forgive_lender_decision,
+            forgive_payroll,
             forgive_2_million=None,
-            forgive_payroll=None,
             forgive_rent=None,
             forgive_utilities=None,
             forgive_mortgage=None,
+            forgive_covered_operations_expenditures=None,
+            forgive_covered_property_damage_costs=None,
+            forgive_covered_supplier_costs=None,
+            forgive_covered_protection_expenditures=None,
             forgive_line_6_3508_or_line_5_3508ez=None,
             forgive_payroll_cost_60_percent_requirement=None,
-            forgive_payroll_schedule=None,
             no_reduction_in_employees=None,
             no_reduction_in_employees_and_covid_impact=None,
             forgive_covered_period_from=None,
             forgive_covered_period_to=None,
             demographics=[],
-            forgive_eidl_amount=None,
-            forgive_eidl_application_number=None,
             dba_name=None,
             forgive_modified_total=None,
             forgive_schedule_a_line_1=None,
@@ -126,8 +129,6 @@ class ForgivenessRequestApi(BaseApi):
             forgive_schedule_a_line_11=None,
             forgive_schedule_a_line_12=None,
             forgive_schedule_a_line_13=None,
-            forgive_alternate_covered_period_from=None,
-            forgive_alternate_covered_period_to=None,
             s_form=False,
         ):
         """
@@ -137,12 +138,16 @@ class ForgivenessRequestApi(BaseApi):
         :param entity_name:
         :param ein:
         :param funding_date:
-        :param forgive_eidl_amount:
-        :param forgive_eidl_application_number:
+        :param ppp_loan_draw:
+        :param naics_code:
         :param forgive_payroll:
         :param forgive_rent:
         :param forgive_utilities:
         :param forgive_mortgage:
+        :param forgive_covered_operations_expenditures:
+        :param forgive_covered_property_damage_costs:
+        :param forgive_covered_supplier_costs:
+        :param forgive_covered_protection_expenditures:
         :param address1:
         :param address2:
         :param dba_name:
@@ -171,10 +176,7 @@ class ForgivenessRequestApi(BaseApi):
         :param forgive_schedule_a_line_13:
         :param forgive_covered_period_from:
         :param forgive_covered_period_to:
-        :param forgive_alternate_covered_period_from:
-        :param forgive_alternate_covered_period_to:
         :param forgive_2_million:
-        :param forgive_payroll_schedule:
         :param primary_email:
         :param primary_name:
         :param ez_form:
@@ -192,13 +194,15 @@ class ForgivenessRequestApi(BaseApi):
 
         if not s_form:
             # enforce fields not previously allowed as None for 3508/3508EZ
-            assert (forgive_payroll is not None), "forgive_payroll cannot be None when 3508 or 3508EZ is selected"
             assert (forgive_utilities is not None), "forgive_utilities cannot be None when 3508 or 3508EZ is selected"
             assert (forgive_mortgage is not None), "forgive_mortgage cannot be None when 3508 or 3508EZ is selected"
             assert (forgive_rent is not None), "forgive_rent cannot be None when 3508 or 3508EZ is selected"
+            assert (forgive_covered_operations_expenditures is not None), "forgive_covered_operations_expenditures cannot be None when 3508 or 3508EZ is selected"
+            assert (forgive_covered_property_damage_costs is not None), "forgive_covered_property_damage_costs cannot be None when 3508 or 3508EZ is selected"
+            assert (forgive_covered_supplier_costs is not None), "forgive_covered_supplier_costs cannot be None when 3508 or 3508EZ is selected"
+            assert (forgive_covered_protection_expenditures is not None), "forgive_covered_protection_expenditures cannot be None when 3508 or 3508EZ is selected"
             assert (forgive_line_6_3508_or_line_5_3508ez is not None), "forgive_line_6_3508_or_line_5_3508ez cannot be None when 3508 or 3508EZ is selected"
             assert (forgive_payroll_cost_60_percent_requirement is not None), "forgive_payroll_cost_60_percent_requirement cannot be None when 3508 or 3508EZ is selected"
-            assert (forgive_payroll_schedule is not None), "forgive_payroll_schedule cannot be None when 3508 or 3508EZ is selected"
             assert (forgive_covered_period_to is not None), "forgive_covered_period_to cannot be None when 3508 or 3508EZ is selected"
             assert (forgive_covered_period_from is not None), "forgive_covered_period_from cannot be None when 3508 or 3508EZ is selected"
 
@@ -227,30 +231,30 @@ class ForgivenessRequestApi(BaseApi):
                 'forgive_lender_confirmation': forgive_lender_confirmation,
                 'forgive_lender_decision': forgive_lender_decision,
                 's_form': s_form,
+                "forgive_2_million": forgive_2_million,
+                "forgive_covered_period_from": forgive_covered_period_from,
+                "forgive_covered_period_to": forgive_covered_period_to,
+                "forgive_payroll": forgive_payroll,
+                "ppp_loan_draw": ppp_loan_draw,
+                "naics_code": naics_code,
             }
         }
 
         if not s_form:
             # mandatory fields for EZ, Full
             params['etran_loan'].update({
-                "forgive_covered_period_from": forgive_covered_period_from,
-                "forgive_covered_period_to": forgive_covered_period_to,
-                "forgive_2_million": forgive_2_million,
-                "forgive_payroll": forgive_payroll,
                 "forgive_rent": forgive_rent,
                 "forgive_utilities": forgive_utilities,
                 "forgive_mortgage": forgive_mortgage,
+                "forgive_covered_operations_expenditures": forgive_covered_operations_expenditures,
+                "forgive_covered_property_damage_costs": forgive_covered_property_damage_costs,
+                "forgive_covered_supplier_costs": forgive_covered_supplier_costs,
+                "forgive_covered_protection_expenditures": forgive_covered_protection_expenditures,
                 "forgive_line_6_3508_or_line_5_3508ez": forgive_line_6_3508_or_line_5_3508ez,
                 "forgive_payroll_cost_60_percent_requirement": forgive_payroll_cost_60_percent_requirement,
-                "forgive_payroll_schedule": forgive_payroll_schedule,
             })
-            # optional fields for EZ, Full
-            if forgive_alternate_covered_period_from: params['etran_loan']['forgive_alternate_covered_period_from'] = forgive_alternate_covered_period_from
-            if forgive_alternate_covered_period_to: params['etran_loan']['forgive_alternate_covered_period_to'] = forgive_alternate_covered_period_to
 
         # optional fields for all 3, S, EZ, Full
-        if forgive_eidl_amount: params['etran_loan']['forgive_eidl_amount'] = forgive_eidl_amount
-        if forgive_eidl_application_number: params['etran_loan']['forgive_eidl_application_number'] = forgive_eidl_application_number
         if dba_name: params['etran_loan']['dba_name'] = dba_name
         if demographics: params['etran_loan']['demographics'] = demographics
 
