@@ -111,6 +111,9 @@ class OriginationRequestApi(BaseApi):
             period_2_quarter=None,
             refinance_of_eidl_amount=None,
             refinance_of_eidl_loan_number=None,            
+            schedule_c_2483_form=False,
+            schedule_c_tax_year=None,
+            schedule_c_gross_income=None,
         ):
 
         """
@@ -228,7 +231,10 @@ class OriginationRequestApi(BaseApi):
             'applicant_no_shuttered_venue_grant': applicant_no_shuttered_venue_grant,
             'loan_request_is_necessary': loan_request_is_necessary,
             'refinance_of_eidl_amount': refinance_of_eidl_amount,
-            'refinance_of_eidl_loan_number': refinance_of_eidl_loan_number
+            'refinance_of_eidl_loan_number': refinance_of_eidl_loan_number,
+            'schedule_c_2483_form': schedule_c_2483_form,
+            'schedule_c_tax_year': schedule_c_tax_year,
+            'schedule_c_gross_income': schedule_c_gross_income,
         }
         
         if second_draw_ppp_loan:
