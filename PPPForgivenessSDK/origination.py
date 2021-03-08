@@ -110,7 +110,10 @@ class OriginationRequestApi(BaseApi):
             period_1_quarter=None,
             period_2_quarter=None,
             refinance_of_eidl_amount=None,
-            refinance_of_eidl_loan_number=None,            
+            refinance_of_eidl_loan_number=None,
+            schedule_c_2483_form=False,
+            schedule_c_tax_year=None,
+            schedule_c_gross_income=None
         ):
 
         """
@@ -230,7 +233,7 @@ class OriginationRequestApi(BaseApi):
             'refinance_of_eidl_amount': refinance_of_eidl_amount,
             'refinance_of_eidl_loan_number': refinance_of_eidl_loan_number
         }
-        
+
         if second_draw_ppp_loan:
             assert ppp_first_draw_sba_loan_number is not None, 'ppp_first_draw_sba_loan_number can not be None if submitting a Second Draw Loan'
             assert ppp_first_draw_loan_amount is not None, 'ppp_first_draw_loan_amount can not be None if submitting a Second Draw Loan'
@@ -246,6 +249,16 @@ class OriginationRequestApi(BaseApi):
                 'ppp_first_draw_loan_amount': ppp_first_draw_loan_amount
             }
             params.update(second_draw_params)
+
+        if schedule_c_2483_form:
+            assert schedule_c_tax_year is not None, 'schedule_c_tax_year cannot be None if submitting a schedule C form'
+            assert schedule_c_gross_income is not None, 'schedule_c_gross_income cannot be None if submitting a schedule C form'
+
+            schedule_c_params = {
+                'schedule_c_tax_year': schedule_c_tax_year,
+                'schedule_c_gross_income': schedule_c_gross_income
+            }
+            params.update(schedule_c_params)
 
         headers = {'Content-Type': 'application/json'}
         try:
