@@ -146,18 +146,18 @@ class OriginationRequestApi(BaseApi):
                 ]:
             assert field in business, f'{field} is missing from Business'
 
-        if business['tin_type'] == 0 and not business['business_type'] == 1: #EIN
-            for field in [
-                    "legal_name",
-                    "dba_tradename",
-                    ]:
-                assert field in business, f'{field} is missing from Business'
-        else: #SSN
-            for field in [
-                    "first_name",
-                    "last_name",
-                    ]:
-                assert field in business, f'{field} is missing from Business'
+        #if business['tin_type'] == 0 and not business['business_type'] == 1: #EIN
+        #    for field in [
+        #            "legal_name",
+        #            "dba_tradename",
+        #            ]:
+        #        assert field in business, f'{field} is missing from Business'
+        #else: #SSN
+        #    for field in [
+        #            "first_name",
+        #            "last_name",
+        #            ]:
+        #        assert field in business, f'{field} is missing from Business'
 
         if business['is_sba_listed_franchise'] or business['is_franchise']:
             assert 'franchise_code' in business, f'franchise_code is missing from Business that has set is_sba_listed_franchise to True'
@@ -187,19 +187,19 @@ class OriginationRequestApi(BaseApi):
                     ]:
                 assert field in owner, f'{field} is missing from BusinessOwner'
 
-            if owner['tin_type'] == 0 and not owner.get('business_type', None) == 1: #EIN
-                for field in [
-                        "business_name",
-                        "business_type",
-                        ]:
-                    assert field in owner, f'{field} is missing from BusinessOwner with tin_type EIN'
-            else: #SSN
-                for field in [
-                        "first_name",
-                        "last_name",
-                        "title",
-                        ]:
-                    assert field in owner, f'{field} is missing from BusinessOwner with tin_type SSN'
+            #if owner['tin_type'] == 0 and not owner.get('business_type', None) == 1: #EIN
+            #    for field in [
+            #            "business_name",
+            #            "business_type",
+            #            ]:
+            #        assert field in owner, f'{field} is missing from BusinessOwner with tin_type EIN'
+            #else: #SSN
+            #    for field in [
+            #            "first_name",
+            #            "last_name",
+            #            "title",
+            #            ]:
+            #        assert field in owner, f'{field} is missing from BusinessOwner with tin_type SSN'
 
         params = {
             "business": business,
