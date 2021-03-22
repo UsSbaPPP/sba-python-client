@@ -1,5 +1,5 @@
 import json
-from .base_api import BaseApi, UnknownException
+from .base_api import BaseApi
 
 
 class EIDLLookupApi(BaseApi):
@@ -22,12 +22,9 @@ class EIDLLookupApi(BaseApi):
             'eidl_loan_number': str(eidl_loan_number)
         }
 
-        try:
-            response = self.execute(http_method=http_method,
-                                    url=uri,
-                                    query_params=params)
+        response = self.execute(http_method=http_method,
+                                url=uri,
+                                query_params=params)
 
-            return {'status': response.status_code,
-                    'data': json.loads(response.text)}
-        except:
-            raise UnknownException
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}

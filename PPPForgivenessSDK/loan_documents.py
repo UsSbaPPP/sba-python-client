@@ -1,6 +1,6 @@
 import json
 
-from .base_api import BaseApi, UnknownException
+from .base_api import BaseApi
 
 
 class LoanDocumentsApi(BaseApi):
@@ -17,15 +17,12 @@ class LoanDocumentsApi(BaseApi):
         uri = self.client.api_uri + endpoint
         params = {'name': name, 'document_type': document_type, 'etran_loan': etran_loan}
         files = {'document': open(document, 'rb')}
-        try:
-            response = self.execute(http_method=http_method,
-                                    url=uri,
-                                    data=params,
-                                    files=files)
-            return {'status': response.status_code,
-                    'data': json.loads(response.text)}
-        except:
-            raise UnknownException
+        response = self.execute(http_method=http_method,
+                                url=uri,
+                                data=params,
+                                files=files)
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}
 
     def list(self, sba_number, page=1):
         """
@@ -46,15 +43,12 @@ class LoanDocumentsApi(BaseApi):
             'sba_number': str(sba_number)
         }
 
-        try:
-            response = self.execute(http_method=http_method,
-                                    url=uri,
-                                    query_params=params)
+        response = self.execute(http_method=http_method,
+                                url=uri,
+                                query_params=params)
 
-            return {'status': response.status_code,
-                    'data': json.loads(response.text)}
-        except:
-            raise UnknownException
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}
 
     def get(self, slug):
         """
@@ -72,12 +66,9 @@ class LoanDocumentsApi(BaseApi):
             'slug': str(slug)
         }
 
-        try:
-            response = self.execute(http_method=http_method,
-                                    url=uri,
-                                    query_params=params)
+        response = self.execute(http_method=http_method,
+                                url=uri,
+                                query_params=params)
 
-            return {'status': response.status_code,
-                    'data': json.loads(response.text)}
-        except:
-            raise UnknownException
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}

@@ -1,6 +1,6 @@
 import json
 
-from .base_api import BaseApi, UnknownException
+from .base_api import BaseApi
 
 
 class MessageApi(BaseApi):
@@ -26,15 +26,12 @@ class MessageApi(BaseApi):
 
         params['is_complete'] = is_complete
 
-        try:
-            response = self.execute(http_method=http_method,
-                                    url=uri,
-                                    query_params=params)
+        response = self.execute(http_method=http_method,
+                                url=uri,
+                                query_params=params)
 
-            return {'status': response.status_code,
-                    'data': json.loads(response.text)}
-        except:
-            raise UnknownException
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}
 
     def get(self, slug):
         """
@@ -48,14 +45,11 @@ class MessageApi(BaseApi):
 
         uri = self.client.api_uri + endpoint
 
-        try:
-            response = self.execute(http_method=http_method,
-                                    url=uri)
+        response = self.execute(http_method=http_method,
+                                url=uri)
 
-            return {'status': response.status_code,
-                    'data': json.loads(response.text)}
-        except:
-            raise UnknownException
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}
 
     def update(self, slug, document_type, document_name, document, message_text=''):
         """
@@ -70,13 +64,10 @@ class MessageApi(BaseApi):
         uri = self.client.api_uri + endpoint
         params = {'document_type': document_type, 'content': message_text, 'document_name': document_name}
         files = {'document': open(document, 'rb')}
-        try:
-            response = self.execute(http_method=http_method,
-                                    url=uri,
-                                    data=params,
-                                    files=files)
-            return {'status': response.status_code,
-                    'data': json.loads(response.text)}
-        except:
-            raise UnknownException
+        response = self.execute(http_method=http_method,
+                                url=uri,
+                                data=params,
+                                files=files)
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}
 

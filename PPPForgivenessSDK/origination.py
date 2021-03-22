@@ -1,5 +1,5 @@
 import json
-from .base_api import BaseApi, UnknownException
+from .base_api import BaseApi
 
 
 
@@ -17,16 +17,13 @@ class OriginationRequestApi(BaseApi):
 
         uri = self.client.api_uri + endpoint
 
-        try:
-            response = self.execute(http_method=http_method,
-                                    url=uri)
+        response = self.execute(http_method=http_method,
+                                url=uri)
 
-            try:
-                return {'status': response.status_code, 'data': json.loads(response.text)}
-            except:
-                return {'status': response.status_code, 'data': response.text}
+        try:
+            return {'status': response.status_code, 'data': json.loads(response.text)}
         except:
-            raise UnknownException # TODO: what about 405?
+            return {'status': response.status_code, 'data': response.text}
 
     def list(self, page=1):
         """
@@ -42,15 +39,12 @@ class OriginationRequestApi(BaseApi):
         uri = self.client.api_uri + endpoint
 
         params = {'page': page}
-        try:
-            response = self.execute(http_method=http_method,
-                                    url=uri,
-                                    query_params=params)
+        response = self.execute(http_method=http_method,
+                                url=uri,
+                                query_params=params)
 
-            return {'status': response.status_code,
-                    'data': json.loads(response.text)}
-        except:
-            raise UnknownException
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}
 
     def get(self, slug):
         """
@@ -63,14 +57,11 @@ class OriginationRequestApi(BaseApi):
 
         uri = self.client.api_uri + endpoint
 
-        try:
-            response = self.execute(http_method=http_method,
-                                    url=uri)
+        response = self.execute(http_method=http_method,
+                                url=uri)
 
-            return {'status': response.status_code,
-                    'data': json.loads(response.text)}
-        except:
-            raise UnknownException
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}
 
     def create(self,
             business,
@@ -254,14 +245,10 @@ class OriginationRequestApi(BaseApi):
             params.update(second_draw_params)
 
         headers = {'Content-Type': 'application/json'}
-        try:
-            response = self.execute(http_method=http_method,
-                                    headers=headers,
-                                    url=uri,
-                                    data=json.dumps(params))
+        response = self.execute(http_method=http_method,
+                                headers=headers,
+                                url=uri,
+                                data=json.dumps(params))
 
-            return {'status': response.status_code,
-                    'data': json.loads(response.text)}
-        except Exception as e:
-            print(e)
-            raise UnknownException
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}
