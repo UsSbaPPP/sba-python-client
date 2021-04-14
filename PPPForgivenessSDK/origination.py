@@ -28,7 +28,7 @@ class OriginationRequestApi(BaseApi):
         except:
             raise UnknownException # TODO: what about 405?
 
-    def list(self, page=1):
+    def list(self, page=1, page_size=100):
         """
 
         :param page:
@@ -41,7 +41,7 @@ class OriginationRequestApi(BaseApi):
 
         uri = self.client.api_uri + endpoint
 
-        params = {'page': page}
+        params = {'page': page, 'page_size': page_size}
         try:
             response = self.execute(http_method=http_method,
                                     url=uri,
