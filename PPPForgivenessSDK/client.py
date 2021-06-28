@@ -6,6 +6,7 @@ from .forgiveness import ForgivenessRequestApi
 from .messages import MessageApi
 from .validation import LookupApi
 from .origination import OriginationRequestApi
+from .direct_forgiveness import DirectForgivenessApi
 
 
 class Client(object):
@@ -87,3 +88,7 @@ class Client(object):
     @property
     def eidl_validations(self):
         return EIDLLookupApi(self)
+
+    @property
+    def direct_forgiveness(self):
+        return DirectForgivenessApi(self)

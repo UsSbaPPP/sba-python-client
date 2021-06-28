@@ -96,9 +96,16 @@ class DirectForgivenessApi(BaseApi):
         return {'status': response.status_code,
                 'data': json.loads(response.text)}
 
-    def delete(self, *args, **kwargs):
-        # Will implement once endpoint made in SBA
-        pass
+    def delete(self, sba_number):
+        http_method = "DELETE"
+        endpoint = "direct_forgiveness_submit/{0}/".format(sba_number)
+
+        uri = self.client.api_uri + endpoint
+        response = self.execute(http_method=http_method,
+                                url=uri)
+
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}
 
     def create_document(self, name, etran_loan, document_type, document):
         http_method = "POST"
