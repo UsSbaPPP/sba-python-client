@@ -5,9 +5,9 @@ from .base_api import BaseApi
 
 class DirectForgivenessApi(BaseApi):
 
-    def status(self, slug):
+    def status(self, sba_number):
         http_method = "GET"
-        endpoint = "direct_forgiveness_status/{0}/".format(slug)
+        endpoint = "direct_forgiveness_status/{0}/".format(sba_number)
 
         uri = self.client.api_uri + endpoint
 
@@ -17,9 +17,9 @@ class DirectForgivenessApi(BaseApi):
         return {'status': response.status_code,
                 'data': json.loads(response.text)}
 
-    def eligibility(self, sbanumber, tin):
+    def eligibility(self, sba_number, tin):
         http_method = "GET"
-        endpoint = "direct_forgiveness_eligibility/?sba_number={0}&tin={1}".format(sbanumber, tin)
+        endpoint = "direct_forgiveness_eligibility/?sba_number={0}&tin={1}".format(sba_number, tin)
 
         uri = self.client.api_uri + endpoint
 
