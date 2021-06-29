@@ -119,3 +119,17 @@ class DirectForgivenessApi(BaseApi):
                                 files=files)
         return {'status': response.status_code,
                 'data': json.loads(response.text)}
+
+    def list(self, sba_number = None, page = 1):
+        http_method = "GET"
+        endpoint = "direct_forgiveness_pending/"
+
+        uri = self.client.api_uri + endpoint
+        params = {"page": page}
+        if sba_number: params["sba_number"] = sba_number
+
+        response = self.execute(http_method=http_method,
+                                url=uri,
+                                data=params)
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}
