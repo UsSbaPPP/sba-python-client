@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
    name='PPPForgivenessSDK',
-   version='1.0',
+   version='1.1',
    description='api support for Paycheck Protection Program Portal',
    author='',
    author_email='',
