@@ -121,6 +121,8 @@ class ForgivenessRequestApi(BaseApi):
             forgive_schedule_a_line_12=None,
             forgive_schedule_a_line_13=None,
             s_form=False,
+            loan_increase=None,
+            loan_increase_date=None
         ):
         """
         :param bank_notional_amount:
@@ -176,6 +178,8 @@ class ForgivenessRequestApi(BaseApi):
         :param no_reduction_in_employees_and_covid_impact:
         :param forgive_lender_confirmation;
         :param forgive_lender_decision;
+        :param loan_increase;
+        :param loan_increase_date;
         :return:
         """
         http_method = "POST"
@@ -200,6 +204,10 @@ class ForgivenessRequestApi(BaseApi):
         if not s_form and not ez_form:
             assert (no_reduction_in_employees is not None), "no_reduction_in_employees cannot be None when 3508 or 3508EZ is selected"
             assert (no_reduction_in_employees_and_covid_impact is not None), "no_reduction_in_employees_and_covid_impact cannot be None when 3508 or 3508EZ is selected"
+
+        if loan_increase or loan_increase_date:
+            assert (loan_increase is not None), "loan_increase cannot be None when a loan_increase_date is supplied"
+            assert (loan_increase_date is not None), "loan_increase_date cannot be None when a loan_increase is supplied"
 
         # mandatory fields for all forms, Full, EZ, S
         params = {
@@ -228,6 +236,8 @@ class ForgivenessRequestApi(BaseApi):
                 "forgive_payroll": forgive_payroll,
                 "ppp_loan_draw": ppp_loan_draw,
                 "naics_code": naics_code,
+                "loan_increase": loan_increase,
+                "loan_increase_date": loan_increase_date
             }
         }
 
