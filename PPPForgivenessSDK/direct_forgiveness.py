@@ -120,13 +120,16 @@ class DirectForgivenessApi(BaseApi):
         return {'status': response.status_code,
                 'data': json.loads(response.text)}
 
-    def list(self, sba_number = None, page = 1):
+    def list(self, sba_number = None, page = 1, status = 'pending'):
         http_method = "GET"
-        endpoint = "direct_forgiveness_pending/"
+        endpoint = "direct_forgiveness_requests/"
 
         uri = self.client.api_uri + endpoint
         params = {"page": page}
         if sba_number: params["sba_number"] = sba_number
+        if status: 
+            assert status in ('pending', 'approved', 'rejected', 'borrower_correction', 'failed_validation', 'all',), 'status must be one of pending, approved, rejected, borrower_correction, failed_validation or all'
+            params["status"] = status
 
         response = self.execute(http_method=http_method,
                                 url=uri,
