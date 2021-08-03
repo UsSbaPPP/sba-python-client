@@ -71,3 +71,19 @@ class MessageApi(BaseApi):
         return {'status': response.status_code,
                 'data': json.loads(response.text)}
 
+    def create(self, sba_number, subject, content):
+        """
+        :param sba_number:
+        :param subject:
+        :param content:
+        :return:
+        """
+        http_method = "POST"
+        endpoint = "ppp_loan_forgiveness_messages/"
+        uri = self.client.api_uri + endpoint
+        params = {'sba_number': sba_number, 'subject': subject, 'content': content}
+        response = self.execute(http_method=http_method,
+                                url=uri,
+                                data=params)
+        return {'status': response.status_code,
+                'data': json.loads(response.text)}
