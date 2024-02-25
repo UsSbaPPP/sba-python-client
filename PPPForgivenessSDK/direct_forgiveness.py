@@ -58,8 +58,10 @@ class DirectForgivenessApi(BaseApi):
         forgive_covered_protection_expenditures=None,
         forgive_line_6_3508_or_line_5_3508ez=None,
         forgive_payroll_cost_60_percent_requirement=None,
+        no_employees=None,
         no_reduction_in_employees=None,
         no_reduction_in_employees_and_covid_impact=None,
+        fte_reduction_safe_harbor_2=None,
         forgive_covered_period_from=None,
         forgive_covered_period_to=None,
         demographics=[],
@@ -82,7 +84,7 @@ class DirectForgivenessApi(BaseApi):
         forgive_schedule_a_line_13=None,
         s_form=False,
         loan_increase=None,
-        loan_increase_date=None
+        loan_increase_date=None,
     ):
         """
         This is an updated create method that supports 3508 FUll and EZ forms in addition to 3508 S.
@@ -106,8 +108,10 @@ class DirectForgivenessApi(BaseApi):
             assert (forgive_covered_period_from is not None), "forgive_covered_period_from cannot be None when 3508 or 3508EZ is selected"
 
         if not s_form and not ez_form:
-            assert (no_reduction_in_employees is not None), "no_reduction_in_employees cannot be None when 3508 or 3508EZ is selected"
-            assert (no_reduction_in_employees_and_covid_impact is not None), "no_reduction_in_employees_and_covid_impact cannot be None when 3508 or 3508EZ is selected"
+            assert (no_reduction_in_employees is not None), "no_reduction_in_employees cannot be None when 3508"
+            assert (no_reduction_in_employees_and_covid_impact is not None), "no_reduction_in_employees_and_covid_impact cannot be None when 3508"
+            assert (no_employees is not None), "no_employees cannot be None when 3508"
+            assert (fte_reduction_safe_harbor_2 is not None), "fte_reduction_safe_harbor_2 cannot be None when 3508"
 
         if loan_increase or loan_increase_date:
             assert (loan_increase is not None), "loan_increase cannot be None when a loan_increase_date is supplied"
@@ -163,8 +167,10 @@ class DirectForgivenessApi(BaseApi):
         if not ez_form and not s_form:
             # mandatory fields for Full
             params.update({
+                "no_employees": no_employees,
                 "no_reduction_in_employees": no_reduction_in_employees,
                 "no_reduction_in_employees_and_covid_impact": no_reduction_in_employees_and_covid_impact,
+                "fte_reduction_safe_harbor_2": fte_reduction_safe_harbor_2,
                 'forgive_modified_total': forgive_modified_total,
                 'forgive_schedule_a_line_1': forgive_schedule_a_line_1,
                 "forgive_schedule_a_line_2": forgive_schedule_a_line_2,
